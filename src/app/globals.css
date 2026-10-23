@@ -91,17 +91,15 @@
   --color-ok: var(--ok);
   --color-ok-wash: var(--ok-wash);
 
-  --font-sans:
-    var(--font-anek, 'Anek Bangla'), 'Noto Sans Bengali', system-ui, sans-serif;
-  --font-display:
-    var(--font-anek, 'Anek Bangla'), 'Noto Sans Bengali', system-ui, sans-serif;
+  --font-sans: var(--font-anek, 'Anek Bangla'), system-ui, sans-serif;
+  --font-display: var(--font-anek, 'Anek Bangla'), system-ui, sans-serif;
 
   --text-xs: 0.75rem;
-  --text-xs--line-height: 1.6;
+  --text-xs--line-height: 1.5;
   --text-sm: 0.875rem;
-  --text-sm--line-height: 1.65;
+  --text-sm--line-height: 1.55;
   --text-base: 1rem;
-  --text-base--line-height: 1.7;
+  --text-base--line-height: 1.6;
   --text-lg: 1.1875rem;
   --text-lg--line-height: 1.55;
   --text-xl: 1.5rem;
@@ -124,7 +122,6 @@
   --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
   --animate-live: live-pulse 1.4s ease-in-out infinite;
 }
-/* spacing: Tailwind's default 4px step (--spacing: 0.25rem) is kept. Use p-4 = 16px, gap-6 = 24px, and so on. */
 
 @keyframes live-pulse {
   0%,
@@ -149,7 +146,6 @@
   }
 }
 
-/* ---------- 3. Base ---------- */
 html {
   background: var(--canvas);
   color: var(--ink);
@@ -158,7 +154,7 @@ body {
   font-family:
     var(--font-anek, 'Anek Bangla'), 'Noto Sans Bengali', system-ui, sans-serif;
   font-stretch: 100%;
-  line-height: 1.7;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 :focus-visible {
@@ -170,7 +166,7 @@ body {
   .display {
     font-stretch: 75%;
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.1;
     letter-spacing: -0.01em;
   }
   .numerals {
