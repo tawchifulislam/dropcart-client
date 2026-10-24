@@ -28,12 +28,12 @@ export function CatalogFilters({ categories, activeCategory, search }: Props) {
           defaultValue={search}
           placeholder="Search products"
           aria-label="Search products"
-          className="field"
+          className="field min-w-0 flex-1"
         />
         {activeCategory && (
           <input type="hidden" name="category" value={activeCategory} />
         )}
-        <button type="submit" className="btn">
+        <button type="submit" className="btn shrink-0">
           Search
         </button>
       </form>
@@ -41,7 +41,7 @@ export function CatalogFilters({ categories, activeCategory, search }: Props) {
         <Link href={hrefFor()} className={chip(!activeCategory)}>
           All
         </Link>
-        {categories.map(category => (
+        {categories.map((category) => (
           <Link
             key={category}
             href={hrefFor(category)}

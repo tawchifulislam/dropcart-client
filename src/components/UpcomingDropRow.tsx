@@ -13,7 +13,7 @@ export function UpcomingDropRow({ drop }: { drop: DropWithProduct }) {
       <ProductImage className="h-16 w-16 shrink-0" />
       <div className="min-w-0 flex-1">
         <p className="truncate font-bold">{drop.product.name}</p>
-        <p className="text-sm text-ink-soft">
+        <p className="text-ink-soft text-sm">
           {drop.stockTotal} units, {formatPrice(drop.dropPrice)}
         </p>
         <DropBadge drop={drop} />

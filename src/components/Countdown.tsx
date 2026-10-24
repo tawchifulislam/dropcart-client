@@ -42,14 +42,14 @@ export function Countdown({
 
   return (
     <div>
-      <p className="text-sm text-ink-soft">{label}</p>
+      <p className="text-ink-soft text-sm">{label}</p>
       <div className="flex items-start gap-0.5" role="timer">
         {parts.map((value, index) => (
           <div key={units[index]} className="flex items-start gap-0.5">
             {index > 0 && <span className="numerals pt-0.5 text-4xl">:</span>}
             <div className="min-w-16 text-center">
               <span className="numerals block text-5xl">{value}</span>
-              <span className="text-xs text-ink-soft">{units[index]}</span>
+              <span className="text-ink-soft text-xs">{units[index]}</span>
             </div>
           </div>
         ))}

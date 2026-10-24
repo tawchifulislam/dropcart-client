@@ -1,4 +1,10 @@
 import Link from 'next/link';
+import { Container } from './Container';
+
+const links = [
+  { href: '/#drops', label: 'Drops' },
+  { href: '/#catalog', label: 'Catalog' },
+];
 
 function TicketMark() {
   return (
@@ -19,17 +25,27 @@ function TicketMark() {
 
 export function SiteHeader() {
   return (
-    <header className="border-b-[1.5px] border-line bg-surface">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+    <header className="border-line bg-surface border-b-[1.5px]">
+      <Container className="flex h-16 items-center justify-between">
         <Link href="/" className="display flex items-center gap-1.5 text-xl">
           <TicketMark />
           DropCart
         </Link>
-        <nav aria-label="Main" className="flex gap-6 text-sm font-bold">
-          <Link href="/#drops">Drops</Link>
-          <Link href="/#catalog">Catalog</Link>
+        <nav
+          aria-label="Main"
+          className="flex items-center text-sm font-bold sm:gap-2"
+        >
+          {links.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="inline-flex min-h-11 items-center px-2.5 sm:px-3"
+            >
+              {label}
+            </Link>
+          ))}
         </nav>
-      </div>
+      </Container>
     </header>
   );
 }

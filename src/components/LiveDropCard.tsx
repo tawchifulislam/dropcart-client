@@ -12,7 +12,7 @@ export function LiveDropCard({ drop }: { drop: DropWithProduct }) {
       <div className="p-4">
         <div className="flex items-center justify-between">
           <DropBadge drop={drop} />
-          <span className="text-sm text-ink-soft">{drop.product.category}</span>
+          <span className="text-ink-soft text-sm">{drop.product.category}</span>
         </div>
         <ProductImage className="mt-3 h-48" />
         <h3 className="display mt-3 text-xl">{drop.product.name}</h3>
@@ -27,7 +27,7 @@ export function LiveDropCard({ drop }: { drop: DropWithProduct }) {
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between">
           <b>{drop.stockRemaining} left</b>
-          <span className="text-sm text-ink-soft">of {drop.stockTotal}</span>
+          <span className="text-ink-soft text-sm">of {drop.stockTotal}</span>
         </div>
         <StockCells remaining={drop.stockRemaining} total={drop.stockTotal} />
         <div className="mt-4">

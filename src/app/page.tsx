@@ -1,4 +1,5 @@
 import { CatalogFilters } from '@/components/CatalogFilters';
+import { Container } from '@/components/Container';
 import { LiveDropCard } from '@/components/LiveDropCard';
 import { ProductTile } from '@/components/ProductTile';
 import { UpcomingDropRow } from '@/components/UpcomingDropRow';
@@ -23,19 +24,23 @@ export default async function HomePage({ searchParams }: Props) {
   ]);
 
   return (
-    <main className="mx-auto max-w-6xl px-5 pb-16">
-      <section id="drops" aria-labelledby="live-heading" className="pt-8">
+    <Container as="main" className="pb-16">
+      <section
+        id="drops"
+        aria-labelledby="live-heading"
+        className="pt-8 md:pt-12"
+      >
         <h2 id="live-heading" className="display text-2xl">
           Live now
         </h2>
         {live.items.length > 0 ? (
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {live.items.map(drop => (
+            {live.items.map((drop) => (
               <LiveDropCard key={drop.id} drop={drop} />
             ))}
           </div>
         ) : (
-          <p className="mt-3 text-ink-soft">No drops are live right now.</p>
+          <p className="text-ink-soft mt-3">No drops are live right now.</p>
         )}
       </section>
 
@@ -45,12 +50,12 @@ export default async function HomePage({ searchParams }: Props) {
         </h2>
         {upcoming.items.length > 0 ? (
           <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {upcoming.items.map(drop => (
+            {upcoming.items.map((drop) => (
               <UpcomingDropRow key={drop.id} drop={drop} />
             ))}
           </div>
         ) : (
-          <p className="mt-3 text-ink-soft">No upcoming drops are scheduled.</p>
+          <p className="text-ink-soft mt-3">No upcoming drops are scheduled.</p>
         )}
       </section>
 
@@ -64,15 +69,15 @@ export default async function HomePage({ searchParams }: Props) {
           search={search}
         />
         {catalog.items.length > 0 ? (
-          <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
-            {catalog.items.map(product => (
+          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+            {catalog.items.map((product) => (
               <ProductTile key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <p className="mt-5 text-ink-soft">No products match your search.</p>
+          <p className="text-ink-soft mt-5">No products match your search.</p>
         )}
       </section>
-    </main>
+    </Container>
   );
 }

@@ -9,6 +9,7 @@ import { StockCells } from '@/components/StockCells';
 import { ApiError, api } from '@/lib/api';
 import { formatPrice } from '@/lib/format';
 import type { DropWithProduct } from '@/lib/types';
+import { Container } from '@/components/Container';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -42,8 +43,8 @@ export default async function DropPage({ params }: Props) {
         : null;
 
   return (
-    <main className="mx-auto max-w-6xl px-5 py-8">
-      <Link href="/" className="text-sm font-bold text-brand">
+    <Container as="main" className="py-8 md:py-12">
+      <Link href="/" className="text-brand text-sm font-bold">
         Back to drops
       </Link>
       <article className="ticket mt-4 grid gap-6 p-4 md:grid-cols-2 md:p-5">
@@ -60,14 +61,14 @@ export default async function DropPage({ params }: Props) {
             </span>
             <s className="text-ink-soft">{formatPrice(product.basePrice)}</s>
           </p>
-          <p className="mt-3 max-w-prose text-ink-soft">
+          <p className="text-ink-soft mt-3 max-w-prose">
             {product.description}
           </p>
 
           <div className="mt-5">
             <div className="mb-2 flex items-center justify-between">
               <b>{drop.stockRemaining} left</b>
-              <span className="text-sm text-ink-soft">
+              <span className="text-ink-soft text-sm">
                 of {drop.stockTotal}
               </span>
             </div>
@@ -86,6 +87,6 @@ export default async function DropPage({ params }: Props) {
           </div>
         </div>
       </article>
-    </main>
+    </Container>
   );
 }

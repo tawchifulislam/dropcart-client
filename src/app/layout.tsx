@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={anek.variable}>
-      <body className="bg-canvas text-ink antialiased">
+      <body className="bg-canvas text-ink min-h-dvh antialiased">
         <SiteHeader />
         {children}
       </body>
