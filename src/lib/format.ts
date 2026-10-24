@@ -1,6 +1,4 @@
-const currency = new Intl.NumberFormat('en-BD', {
-  style: 'currency',
-  currency: 'BDT',
+const amountFormat = new Intl.NumberFormat('en-US', {
   maximumFractionDigits: 0,
 });
 
@@ -12,6 +10,7 @@ const startFormat = new Intl.DateTimeFormat('en-GB', {
   timeZone: 'Asia/Dhaka',
 });
 
-export const formatPrice = (amount: number) => currency.format(amount);
+export const formatPrice = (amount: number) =>
+  `৳${amountFormat.format(amount)}`;
 
 export const formatStart = (iso: string) => startFormat.format(new Date(iso));
