@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Anek_Bangla } from 'next/font/google';
 import { SiteHeader } from '@/components/SiteHeader';
 import './globals.css';
+import { SiteFooter } from '@/components/SiteFooter';
 
 const anek = Anek_Bangla({
   subsets: ['latin'],
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className="bg-canvas text-ink min-h-dvh antialiased">
         <SiteHeader />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

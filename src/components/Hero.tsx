@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { DropWithProduct } from '@/lib/types';
 import { Container } from './Container';
 import { DropCard } from './DropCard';
+import { HeroBackdrop } from './HeroBackdrop';
 import { HeroStubs } from './HeroStubs';
 
 interface Props {
@@ -21,8 +22,9 @@ export function Hero({ drop, stubs, liveCount, upcomingCount }: Props) {
     <section
       id="drops"
       aria-labelledby="hero-heading"
-      className="border-line border-b-[1.5px]"
+      className="border-line relative isolate overflow-hidden border-b-[1.5px]"
     >
+      <HeroBackdrop src="/hero/hero.jpg" />
       <Container className="grid items-center gap-8 py-10 md:py-14 lg:grid-cols-2 lg:gap-14">
         <div>
           <h1
@@ -53,7 +55,7 @@ export function Hero({ drop, stubs, liveCount, upcomingCount }: Props) {
             {stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="text-ink-soft text-sm">{stat.label}</dt>
-                <dd className="display text-2xl">{stat.value}</dd>
+                <dd className="display text-3xl">{stat.value}</dd>
               </div>
             ))}
           </dl>
