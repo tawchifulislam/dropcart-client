@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Anek_Bangla } from 'next/font/google';
+import { SiteHeader } from '@/components/SiteHeader';
 import './globals.css';
 
 const anek = Anek_Bangla({
@@ -21,7 +22,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={anek.variable}>
-      <body className="bg-canvas text-ink antialiased">{children}</body>
+      <body className="bg-canvas text-ink antialiased">
+        <SiteHeader />
+        {children}
+      </body>
     </html>
   );
 }
