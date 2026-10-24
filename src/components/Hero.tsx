@@ -2,14 +2,16 @@ import Link from 'next/link';
 import type { DropWithProduct } from '@/lib/types';
 import { Container } from './Container';
 import { DropCard } from './DropCard';
+import { HeroStubs } from './HeroStubs';
 
 interface Props {
   drop?: DropWithProduct;
+  stubs: DropWithProduct[];
   liveCount: number;
   upcomingCount: number;
 }
 
-export function Hero({ drop, liveCount, upcomingCount }: Props) {
+export function Hero({ drop, stubs, liveCount, upcomingCount }: Props) {
   const stats = [
     { label: 'Live now', value: liveCount },
     { label: 'Dropping soon', value: upcomingCount },
@@ -55,6 +57,7 @@ export function Hero({ drop, liveCount, upcomingCount }: Props) {
               </div>
             ))}
           </dl>
+          <HeroStubs drops={stubs} />
         </div>
         {drop && <DropCard drop={drop} featured />}
       </Container>

@@ -33,6 +33,7 @@ export default async function HomePage({ searchParams }: Props) {
     <main>
       <Hero
         drop={featured}
+        stubs={upcomingList}
         liveCount={live.items.length}
         upcomingCount={upcoming.items.length}
       />
