@@ -10,7 +10,12 @@ export function UpcomingDropRow({ drop }: { drop: DropWithProduct }) {
       href={`/drops/${drop.id}`}
       className="ticket flex items-center gap-4 p-3"
     >
-      <ProductImage className="h-16 w-16 shrink-0" />
+      <ProductImage
+        src={drop.product.images[0]}
+        alt={drop.product.name}
+        sizes="64px"
+        className="h-16 w-16 shrink-0"
+      />
       <div className="min-w-0 flex-1">
         <p className="truncate font-bold">{drop.product.name}</p>
         <p className="text-ink-soft text-sm">

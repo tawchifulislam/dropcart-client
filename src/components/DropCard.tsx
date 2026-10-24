@@ -6,21 +6,41 @@ import { DropBadge } from './DropBadge';
 import { ProductImage } from './ProductImage';
 import { StockCells } from './StockCells';
 
-export function LiveDropCard({ drop }: { drop: DropWithProduct }) {
+const CARD_SIZES = '(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw';
+const FEATURED_SIZES = '(min-width: 1024px) 560px, 100vw';
+
+interface Props {
+  drop: DropWithProduct;
+  featured?: boolean;
+}
+
+export function DropCard({ drop, featured = false }: Props) {
+  const { product } = drop;
+  const countdown =
+    drop.status === 'upcoming'
+      ? { target: drop.startsAt, label: 'Starts in' }
+      : { target: drop.endsAt, label: 'Ends in' };
+
   return (
     <article className="ticket">
       <div className="p-4">
         <div className="flex items-center justify-between">
           <DropBadge drop={drop} />
-          <span className="text-ink-soft text-sm">{drop.product.category}</span>
+          <span className="text-ink-soft text-sm">{product.category}</span>
         </div>
-        <ProductImage className="mt-3 h-48" />
-        <h3 className="display mt-3 text-xl">{drop.product.name}</h3>
+        <ProductImage
+          src={product.images[0]}
+          alt={product.name}
+          sizes={featured ? FEATURED_SIZES : CARD_SIZES}
+          priority={featured}
+          className={`mt-3 ${featured ? 'h-56 sm:h-72' : 'h-48'}`}
+        />
+        <h3 className="display mt-3 text-xl">{product.name}</h3>
         <p className="mt-1 flex items-baseline gap-3">
           <span className="display text-2xl">
             {formatPrice(drop.dropPrice)}
           </span>
-          <s className="text-ink-soft">{formatPrice(drop.product.basePrice)}</s>
+          <s className="text-ink-soft">{formatPrice(product.basePrice)}</s>
         </p>
       </div>
       <div className="ticket-perf" />
@@ -31,7 +51,7 @@ export function LiveDropCard({ drop }: { drop: DropWithProduct }) {
         </div>
         <StockCells remaining={drop.stockRemaining} total={drop.stockTotal} />
         <div className="mt-4">
-          <Countdown target={drop.endsAt} label="Ends in" />
+          <Countdown target={countdown.target} label={countdown.label} />
         </div>
         <Link
           href={`/drops/${drop.id}`}

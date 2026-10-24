@@ -48,7 +48,13 @@ export default async function DropPage({ params }: Props) {
         Back to drops
       </Link>
       <article className="ticket mt-4 grid gap-6 p-4 md:grid-cols-2 md:p-5">
-        <ProductImage className="h-72 md:h-full md:min-h-96" />
+        <ProductImage
+          src={product.images[0]}
+          alt={product.name}
+          sizes="(min-width: 768px) 560px, 100vw"
+          priority
+          className="h-72 md:h-full md:min-h-96"
+        />
         <div>
           <div className="flex items-center gap-2">
             <DropBadge drop={drop} />

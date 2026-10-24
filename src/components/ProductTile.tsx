@@ -11,7 +11,12 @@ export function ProductTile({ product }: { product: CatalogProduct }) {
       : product.basePrice;
   const content = (
     <>
-      <ProductImage className="h-32" />
+      <ProductImage
+        src={product.images[0]}
+        alt={product.name}
+        sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw"
+        className="h-32"
+      />
       <p className="mt-2 text-sm font-bold">{product.name}</p>
       <p className="display mb-2 text-lg">{formatPrice(price)}</p>
       <DropBadge drop={product.drop} />
