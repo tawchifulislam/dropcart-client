@@ -27,7 +27,15 @@ const loadDrop = cache(async (id: string) => {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const drop = await loadDrop(id);
-  return { title: `${drop.product.name} | DropCart` };
+  return {
+    title: drop.product.name,
+    description: drop.product.description,
+    openGraph: {
+      title: drop.product.name,
+      description: drop.product.description,
+      images: drop.product.images.slice(0, 1),
+    },
+  };
 }
 
 export default async function DropPage({ params }: Props) {

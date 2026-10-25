@@ -7,7 +7,7 @@ import { Reveal } from '@/components/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 
 export const metadata: Metadata = {
-  title: 'How it works | DropCart',
+  title: 'How it works',
   description:
     'How limited drops, five-minute reservations and checkout work on DropCart.',
 };

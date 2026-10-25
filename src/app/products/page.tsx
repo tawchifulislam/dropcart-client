@@ -12,7 +12,7 @@ import type { CatalogProduct, Paginated } from '@/lib/types';
 const PAGE_SIZE = 12;
 
 export const metadata: Metadata = {
-  title: 'Catalog | DropCart',
+  title: 'Catalog',
   description:
     'Browse every DropCart product. Products go on sale in scheduled drops.',
 };

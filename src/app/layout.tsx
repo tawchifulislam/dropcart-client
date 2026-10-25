@@ -4,6 +4,7 @@ import { MotionProvider } from '@/components/MotionProvider';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
 import './globals.css';
+import { SITE_URL } from '@/lib/site';
 
 const anek = Anek_Bangla({
   subsets: ['latin'],
@@ -13,8 +14,10 @@ const anek = Anek_Bangla({
 });
 
 export const metadata: Metadata = {
-  title: 'DropCart',
+  metadataBase: new URL(SITE_URL),
+  title: { default: 'DropCart', template: '%s | DropCart' },
   description: 'Limited drops. Every unit counted.',
+  openGraph: { siteName: 'DropCart', type: 'website' },
 };
 
 const themeScript = `try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){}`;

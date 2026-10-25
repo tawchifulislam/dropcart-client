@@ -14,3 +14,5 @@ export const formatPrice = (amount: number) =>
   `৳${amountFormat.format(amount)}`;
 
 export const formatStart = (iso: string) => startFormat.format(new Date(iso));
+export const humanize = (key: string) =>
+  key.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase());

@@ -9,7 +9,7 @@ import { api } from '@/lib/api';
 import type { DropWithProduct } from '@/lib/types';
 
 export const metadata: Metadata = {
-  title: 'Drops | DropCart',
+  title: 'Drops',
   description:
     'Live drops and upcoming drops. Every drop has a fixed number of units.',
 };

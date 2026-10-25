@@ -10,6 +10,11 @@ import { Ticker } from '@/components/Ticker';
 import { UpcomingDropRow } from '@/components/UpcomingDropRow';
 import { api } from '@/lib/api';
 import type { DropWithProduct } from '@/lib/types';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: { absolute: 'DropCart | Limited drops, every unit counted' },
+};
 
 export default async function HomePage() {
   const [live, upcoming, categories] = await Promise.all([
