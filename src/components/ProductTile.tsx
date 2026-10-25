@@ -9,8 +9,12 @@ export function ProductTile({ product }: { product: CatalogProduct }) {
     product.drop?.status === 'live'
       ? product.drop.dropPrice
       : product.basePrice;
-  const content = (
-    <>
+
+  return (
+    <Link
+      href={`/products/${product.slug}`}
+      className="group ticket ease-snap block p-3 transition-transform duration-200 hover:-translate-y-1"
+    >
       <ProductImage
         src={product.images[0]}
         alt={product.name}
@@ -20,19 +24,6 @@ export function ProductTile({ product }: { product: CatalogProduct }) {
       <p className="mt-2 text-sm font-bold">{product.name}</p>
       <p className="display mb-2 text-lg">{formatPrice(price)}</p>
       <DropBadge drop={product.drop} />
-    </>
-  );
-
-  return product.drop ? (
-    <Link
-      href={`/drops/${product.drop.id}`}
-      className="group ticket ease-snap block p-3 transition-transform duration-200 hover:-translate-y-1"
-    >
-      {content}
     </Link>
-  ) : (
-    <div className="group ticket ease-snap block p-3 transition-transform duration-200 hover:-translate-y-1">
-      {content}
-    </div>
   );
 }
