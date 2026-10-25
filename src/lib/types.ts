@@ -38,3 +38,19 @@ export interface Paginated<T> {
   page: number;
   limit: number;
 }
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: 'shopper' | 'admin';
+}
+
+export interface ReservationView {
+  id: string;
+  dropId: string;
+  quantity: number;
+  status: 'active' | 'completed' | 'expired' | 'released';
+  expiresAt: string;
+  expiresInMs: number;
+  holdMs: number;
+}
