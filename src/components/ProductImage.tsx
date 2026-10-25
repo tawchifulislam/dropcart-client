@@ -52,7 +52,7 @@ export function ProductImage({
         sizes={sizes}
         priority={priority}
         onError={() => setFailed(true)}
-        className="object-cover"
+        className="ease-snap object-cover transition-transform duration-500 group-hover:scale-105"
       />
     </div>
   );

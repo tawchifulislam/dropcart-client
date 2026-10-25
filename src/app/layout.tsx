@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Anek_Bangla } from 'next/font/google';
+import { MotionProvider } from '@/components/MotionProvider';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
 import './globals.css';
@@ -33,9 +34,11 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="bg-canvas text-ink flex min-h-dvh flex-col antialiased">
-        <SiteHeader />
-        <div className="flex-1">{children}</div>
-        <SiteFooter />
+        <MotionProvider>
+          <SiteHeader />
+          <div className="flex-1">{children}</div>
+          <SiteFooter />
+        </MotionProvider>
       </body>
     </html>
   );

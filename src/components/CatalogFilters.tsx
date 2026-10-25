@@ -12,7 +12,7 @@ export function CatalogFilters({ categories, activeCategory, search }: Props) {
     if (search) params.set('search', search);
     if (category) params.set('category', category);
     const query = params.toString();
-    return query ? `/?${query}` : '/';
+    return query ? `/products?${query}` : '/products';
   };
 
   const chip = (active: boolean) =>
@@ -22,7 +22,7 @@ export function CatalogFilters({ categories, activeCategory, search }: Props) {
 
   return (
     <div className="space-y-3">
-      <form action="/" role="search" className="flex gap-2">
+      <form action="/products" role="search" className="flex gap-2">
         <input
           name="search"
           defaultValue={search}

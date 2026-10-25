@@ -1,28 +1,21 @@
-import { CatalogFilters } from '@/components/CatalogFilters';
+import { CategoryTiles } from '@/components/CategoryTiles';
 import { Container } from '@/components/Container';
+import { CtaBand } from '@/components/CtaBand';
 import { DropCard } from '@/components/DropCard';
 import { Hero } from '@/components/Hero';
 import { HowItWorks } from '@/components/HowItWorks';
-import { ProductTile } from '@/components/ProductTile';
+import { Reveal } from '@/components/Reveal';
+import { SectionHeading } from '@/components/SectionHeading';
+import { Ticker } from '@/components/Ticker';
 import { UpcomingDropRow } from '@/components/UpcomingDropRow';
 import { api } from '@/lib/api';
-import type { CatalogProduct, DropWithProduct, Paginated } from '@/lib/types';
+import type { DropWithProduct } from '@/lib/types';
 
-interface Props {
-  searchParams: Promise<{ search?: string; category?: string }>;
-}
-
-export default async function HomePage({ searchParams }: Props) {
-  const { search, category } = await searchParams;
-  const params = new URLSearchParams();
-  if (search) params.set('search', search);
-  if (category) params.set('category', category);
-
-  const [live, upcoming, categories, catalog] = await Promise.all([
+export default async function HomePage() {
+  const [live, upcoming, categories] = await Promise.all([
     api<{ items: DropWithProduct[] }>('/drops/live'),
     api<{ items: DropWithProduct[] }>('/drops/upcoming'),
     api<{ items: string[] }>('/products/categories'),
-    api<Paginated<CatalogProduct>>(`/products?${params}`),
   ]);
 
   const [featuredLive, ...otherLive] = live.items;
@@ -33,65 +26,49 @@ export default async function HomePage({ searchParams }: Props) {
     <main>
       <Hero
         drop={featured}
-        stubs={upcomingList}
         liveCount={live.items.length}
         upcomingCount={upcoming.items.length}
       />
-      <Container className="pb-16">
+      <Ticker drops={[...live.items, ...upcoming.items]} />
+      <Container className="pb-20">
         {otherLive.length > 0 && (
-          <section aria-labelledby="live-heading" className="pt-10 md:pt-12">
-            <h2 id="live-heading" className="display text-2xl">
-              Also live now
-            </h2>
-            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {otherLive.map((drop) => (
-                <DropCard key={drop.id} drop={drop} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {upcomingList.length > 0 && (
-          <section
-            aria-labelledby="upcoming-heading"
-            className="pt-10 md:pt-12"
-          >
-            <h2 id="upcoming-heading" className="display text-2xl">
-              Dropping soon
-            </h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {upcomingList.map((drop) => (
-                <UpcomingDropRow key={drop.id} drop={drop} />
+          <section aria-labelledby="live-heading" className="pt-16">
+            <SectionHeading
+              id="live-heading"
+              title="Also live now"
+              href="/drops"
+            />
+            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {otherLive.slice(0, 3).map((drop, index) => (
+                <Reveal key={drop.id} delay={index * 0.08}>
+                  <DropCard drop={drop} />
+                </Reveal>
               ))}
             </div>
           </section>
         )}
 
         <HowItWorks />
+        <CategoryTiles categories={categories.items} />
 
-        <section
-          id="catalog"
-          aria-labelledby="catalog-heading"
-          className="pt-12"
-        >
-          <h2 id="catalog-heading" className="display mb-4 text-2xl">
-            All products
-          </h2>
-          <CatalogFilters
-            categories={categories.items}
-            activeCategory={category}
-            search={search}
-          />
-          {catalog.items.length > 0 ? (
-            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {catalog.items.map((product) => (
-                <ProductTile key={product.id} product={product} />
+        {upcomingList.length > 0 && (
+          <section aria-labelledby="upcoming-heading" className="pt-16">
+            <SectionHeading
+              id="upcoming-heading"
+              title="Dropping soon"
+              href="/drops"
+            />
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {upcomingList.slice(0, 3).map((drop, index) => (
+                <Reveal key={drop.id} delay={index * 0.08}>
+                  <UpcomingDropRow drop={drop} />
+                </Reveal>
               ))}
             </div>
-          ) : (
-            <p className="text-ink-soft mt-5">No products match your search.</p>
-          )}
-        </section>
+          </section>
+        )}
+
+        <CtaBand />
       </Container>
     </main>
   );

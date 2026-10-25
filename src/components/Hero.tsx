@@ -1,18 +1,18 @@
 import Link from 'next/link';
 import type { DropWithProduct } from '@/lib/types';
+import { AnimatedHeading } from './AnimatedHeading';
 import { Container } from './Container';
 import { DropCard } from './DropCard';
-import { HeroBackdrop } from './HeroBackdrop';
-import { HeroStubs } from './HeroStubs';
+import { PunchRow } from './PunchRow';
+import { TiltStage } from './TiltStage';
 
 interface Props {
   drop?: DropWithProduct;
-  stubs: DropWithProduct[];
   liveCount: number;
   upcomingCount: number;
 }
 
-export function Hero({ drop, stubs, liveCount, upcomingCount }: Props) {
+export function Hero({ drop, liveCount, upcomingCount }: Props) {
   const stats = [
     { label: 'Live now', value: liveCount },
     { label: 'Dropping soon', value: upcomingCount },
@@ -20,26 +20,29 @@ export function Hero({ drop, stubs, liveCount, upcomingCount }: Props) {
 
   return (
     <section
-      id="drops"
       aria-labelledby="hero-heading"
       className="border-line relative isolate overflow-hidden border-b-[1.5px]"
     >
-      <HeroBackdrop src="/hero/hero.jpg" />
-      <Container className="grid items-center gap-8 py-10 md:py-14 lg:grid-cols-2 lg:gap-14">
+      <div
+        aria-hidden="true"
+        className="animate-drift absolute inset-0 -z-10 bg-[radial-gradient(var(--line)_1.2px,transparent_1.2px)] mask-[linear-gradient(to_bottom,black,transparent)] bg-size-[28px_28px] opacity-15"
+      />
+      <Container className="grid items-center gap-12 py-12 md:py-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:py-24">
         <div>
-          <h1
+          <AnimatedHeading
             id="hero-heading"
-            className="display text-2xl sm:text-3xl lg:text-4xl"
-          >
-            Limited drops.
-            <span className="text-brand block">Every unit counted.</span>
-          </h1>
-          <p className="text-ink-soft mt-4 max-w-prose text-lg">
+            lines={[
+              { text: 'Limited drops.' },
+              { text: 'Every unit counted.', className: 'text-brand' },
+            ]}
+          />
+          <p className="animate-rise text-ink-soft mt-5 max-w-prose text-lg [animation-delay:600ms]">
             Products go live on a schedule with a fixed number of units. Reserve
             yours for five minutes, pay, and it is yours. When the last unit is
             punched out, the drop is over.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <PunchRow />
+          <div className="animate-rise mt-8 flex flex-wrap gap-3 [animation-delay:750ms]">
             {drop && (
               <Link href={`/drops/${drop.id}`} className="btn btn-reserve">
                 {drop.status === 'live'
@@ -47,11 +50,11 @@ export function Hero({ drop, stubs, liveCount, upcomingCount }: Props) {
                   : 'View the next drop'}
               </Link>
             )}
-            <Link href="/#catalog" className="btn">
+            <Link href="/products" className="btn">
               Browse catalog
             </Link>
           </div>
-          <dl className="mt-8 flex gap-8">
+          <dl className="animate-rise mt-8 flex gap-8 [animation-delay:900ms]">
             {stats.map((stat) => (
               <div key={stat.label}>
                 <dt className="text-ink-soft text-sm">{stat.label}</dt>
@@ -59,9 +62,29 @@ export function Hero({ drop, stubs, liveCount, upcomingCount }: Props) {
               </div>
             ))}
           </dl>
-          <HeroStubs drops={stubs} />
         </div>
-        {drop && <DropCard drop={drop} featured />}
+
+        {drop && (
+          <div className="animate-rise relative [animation-delay:300ms]">
+            <TiltStage>
+              <DropCard drop={drop} featured />
+            </TiltStage>
+            <div
+              aria-hidden="true"
+              className="ticket animate-float pointer-events-none absolute top-12 -left-8 hidden items-center gap-2 px-3 py-2 text-sm font-bold lg:flex"
+            >
+              <span className="badge badge-live">Live</span>
+              {drop.stockRemaining} left
+            </div>
+            <div
+              aria-hidden="true"
+              className="ticket animate-float pointer-events-none absolute -right-4 bottom-28 hidden items-center gap-2 px-3 py-2 text-sm font-bold [animation-delay:1.2s] lg:flex"
+            >
+              <span className="badge badge-upcoming">5 min</span>
+              hold while you pay
+            </div>
+          </div>
+        )}
       </Container>
     </section>
   );

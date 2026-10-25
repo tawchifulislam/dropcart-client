@@ -22,7 +22,7 @@ export function DropCard({ drop, featured = false }: Props) {
       : { target: drop.endsAt, label: 'Ends in' };
 
   return (
-    <article className="ticket">
+    <article className="group ticket ease-snap transition-transform duration-200 hover:-translate-y-1">
       <div className="p-4">
         <div className="flex items-center justify-between">
           <DropBadge drop={drop} />

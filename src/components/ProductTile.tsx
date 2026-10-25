@@ -24,10 +24,15 @@ export function ProductTile({ product }: { product: CatalogProduct }) {
   );
 
   return product.drop ? (
-    <Link href={`/drops/${product.drop.id}`} className="ticket block p-3">
+    <Link
+      href={`/drops/${product.drop.id}`}
+      className="group ticket ease-snap block p-3 transition-transform duration-200 hover:-translate-y-1"
+    >
       {content}
     </Link>
   ) : (
-    <div className="ticket p-3">{content}</div>
+    <div className="group ticket ease-snap block p-3 transition-transform duration-200 hover:-translate-y-1">
+      {content}
+    </div>
   );
 }

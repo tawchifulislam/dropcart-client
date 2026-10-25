@@ -8,7 +8,7 @@ export function UpcomingDropRow({ drop }: { drop: DropWithProduct }) {
   return (
     <Link
       href={`/drops/${drop.id}`}
-      className="ticket flex items-center gap-4 p-3"
+      className="group ticket ease-snap flex items-center gap-4 p-3 transition-transform duration-200 hover:-translate-y-1"
     >
       <ProductImage
         src={drop.product.images[0]}

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { NAV_LINKS } from '@/lib/navigation';
 import { Container } from './Container';
 import { MobileMenu } from './MobileMenu';
+import { NavLinks } from './NavLinks';
 import { ThemeToggle } from './ThemeToggle';
 import { TicketMark } from './TicketMark';
 
@@ -13,17 +14,7 @@ export function SiteHeader() {
           <TicketMark />
           DropCart
         </Link>
-        <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="rounded-control hover:bg-sunk inline-flex min-h-11 items-center px-3 text-sm font-bold"
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
+        <NavLinks />
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link

@@ -45,13 +45,15 @@ export function SiteFooter() {
             minutes, pay, and it is yours.
           </p>
         </div>
-        <FooterColumn title="Explore" links={NAV_LINKS} />
+        <FooterColumn
+          title="Explore"
+          links={[{ href: '/', label: 'Home' }, ...NAV_LINKS]}
+        />
         <FooterColumn title="Account" links={ACCOUNT_LINKS} />
       </Container>
       <div className="border-line border-t-[1.5px] border-dashed">
         <Container className="text-ink-soft flex flex-col gap-1 py-4 text-sm sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; {new Date().getFullYear()} DropCart. Prices in BDT.</p>
-          <p>Built with Next.js, Express and MongoDB.</p>
         </Container>
       </div>
     </footer>

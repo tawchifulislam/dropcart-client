@@ -1,9 +1,31 @@
 'use client';
 
+import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+const UNITS = ['hrs', 'min', 'sec'];
+
 const pad = (value: number) => String(value).padStart(2, '0');
+
+function Digit({ value }: { value: string }) {
+  return (
+    <span className="relative inline-block h-[1em] w-[1ch] overflow-hidden align-top">
+      <AnimatePresence initial={false} mode="popLayout">
+        <motion.span
+          key={value}
+          initial={{ y: '100%', opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: '-100%', opacity: 0 }}
+          transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
+          className="absolute inset-0 text-center"
+        >
+          {value}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
 
 export function Countdown({
   target,
@@ -38,18 +60,25 @@ export function Countdown({
           pad(Math.floor((seconds % 3600) / 60)),
           pad(seconds % 60),
         ];
-  const units = ['hrs', 'min', 'sec'];
+  const spoken =
+    seconds === null
+      ? label
+      : `${label} ${parts[0]} hours ${parts[1]} minutes ${parts[2]} seconds`;
 
   return (
-    <div>
+    <div role="timer" aria-label={spoken}>
       <p className="text-ink-soft text-sm">{label}</p>
-      <div className="flex items-start gap-0.5" role="timer">
+      <div aria-hidden="true" className="flex items-start gap-0.5">
         {parts.map((value, index) => (
-          <div key={units[index]} className="flex items-start gap-0.5">
+          <div key={UNITS[index]} className="flex items-start gap-0.5">
             {index > 0 && <span className="numerals pt-0.5 text-4xl">:</span>}
             <div className="min-w-16 text-center">
-              <span className="numerals block text-5xl">{value}</span>
-              <span className="text-ink-soft text-xs">{units[index]}</span>
+              <span className="numerals flex justify-center text-5xl">
+                {[...value].map((char, position) => (
+                  <Digit key={position} value={char} />
+                ))}
+              </span>
+              <span className="text-ink-soft text-xs">{UNITS[index]}</span>
             </div>
           </div>
         ))}
