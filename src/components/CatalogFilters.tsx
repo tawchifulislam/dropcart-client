@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { CatalogSearch } from './CatalogSearch';
 
 interface Props {
   categories: string[];
@@ -22,21 +23,7 @@ export function CatalogFilters({ categories, activeCategory, search }: Props) {
 
   return (
     <div className="space-y-3">
-      <form action="/products" role="search" className="flex gap-2">
-        <input
-          name="search"
-          defaultValue={search}
-          placeholder="Search products"
-          aria-label="Search products"
-          className="field min-w-0 flex-1"
-        />
-        {activeCategory && (
-          <input type="hidden" name="category" value={activeCategory} />
-        )}
-        <button type="submit" className="btn shrink-0">
-          Search
-        </button>
-      </form>
+      <CatalogSearch />
       <nav aria-label="Categories" className="flex flex-wrap gap-2">
         <Link href={hrefFor()} className={chip(!activeCategory)}>
           All
