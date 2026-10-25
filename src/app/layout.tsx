@@ -5,6 +5,7 @@ import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
 import './globals.css';
 import { SITE_URL } from '@/lib/site';
+import { AuthProvider } from '@/components/AuthProvider';
 
 const anek = Anek_Bangla({
   subsets: ['latin'],
@@ -38,9 +39,11 @@ export default function RootLayout({
       </head>
       <body className="bg-canvas text-ink flex min-h-dvh flex-col antialiased">
         <MotionProvider>
-          <SiteHeader />
-          <div className="flex-1">{children}</div>
-          <SiteFooter />
+          <AuthProvider>
+            <SiteHeader />
+            <div className="flex-1">{children}</div>
+            <SiteFooter />
+          </AuthProvider>
         </MotionProvider>
       </body>
     </html>

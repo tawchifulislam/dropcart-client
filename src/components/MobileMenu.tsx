@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useAuth } from './AuthProvider';
 
 interface NavLink {
   href: string;
@@ -10,6 +11,7 @@ interface NavLink {
 
 export function MobileMenu({ links }: { links: NavLink[] }) {
   const [open, setOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     if (!open) return;
@@ -68,13 +70,26 @@ export function MobileMenu({ links }: { links: NavLink[] }) {
               </li>
             ))}
           </ul>
-          <Link
-            href="/login"
-            onClick={close}
-            className="btn btn-primary mt-3 w-full"
-          >
-            Sign in
-          </Link>
+          {user ? (
+            <button
+              type="button"
+              onClick={() => {
+                close();
+                void logout();
+              }}
+              className="btn mt-3 w-full"
+            >
+              Sign out
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              onClick={close}
+              className="btn btn-primary mt-3 w-full"
+            >
+              Sign in
+            </Link>
+          )}
         </nav>
       )}
     </div>

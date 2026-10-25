@@ -5,6 +5,7 @@ import { MobileMenu } from './MobileMenu';
 import { NavLinks } from './NavLinks';
 import { ThemeToggle } from './ThemeToggle';
 import { TicketMark } from './TicketMark';
+import { HeaderAuth } from './HeaderAuth';
 
 export function SiteHeader() {
   return (
@@ -17,12 +18,7 @@ export function SiteHeader() {
         <NavLinks />
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Link
-            href="/login"
-            className="btn btn-primary hidden min-h-11 px-4 text-sm md:inline-flex"
-          >
-            Sign in
-          </Link>
+          <HeaderAuth />
           <MobileMenu links={NAV_LINKS} />
         </div>
       </Container>
