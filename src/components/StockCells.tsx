@@ -1,12 +1,12 @@
 const MAX_CELLS = 24;
 
-export function StockCells({
-  remaining,
-  total,
-}: {
+interface Props {
   remaining: number;
   total: number;
-}) {
+  punchedAt?: number;
+}
+
+export function StockCells({ remaining, total, punchedAt }: Props) {
   const cellCount = Math.min(total, MAX_CELLS);
   const filled =
     remaining === 0
@@ -20,9 +20,16 @@ export function StockCells({
       role="img"
       aria-label={`${remaining} of ${total} left`}
     >
-      {Array.from({ length: cellCount }, (_, index) => (
-        <span key={index} className={index < filled ? 'cell' : 'cell gone'} />
-      ))}
+      {Array.from({ length: cellCount }, (_, index) => {
+        if (index < filled) return <span key={index} className="cell" />;
+        const punched = punchedAt !== undefined && index === filled;
+        return (
+          <span
+            key={index}
+            className={`cell gone${punched ? 'just-gone' : ''}`}
+          />
+        );
+      })}
     </div>
   );
 }
