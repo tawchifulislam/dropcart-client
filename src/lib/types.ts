@@ -54,3 +54,14 @@ export interface ReservationView {
   expiresInMs: number;
   holdMs: number;
 }
+
+export interface ReservationHistoryItem {
+  id: string;
+  dropId: string;
+  quantity: number;
+  status: ReservationView['status'];
+  expiresAt: string;
+  createdAt: string;
+  dropPrice: number;
+  product: { id: string; name: string; slug: string; image?: string };
+}

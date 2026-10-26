@@ -16,3 +16,15 @@ export const formatPrice = (amount: number) =>
 export const formatStart = (iso: string) => startFormat.format(new Date(iso));
 export const humanize = (key: string) =>
   key.replace(/([A-Z])/g, ' $1').replace(/^./, (char) => char.toUpperCase());
+
+const dateTimeFormat = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  hour: 'numeric',
+  minute: '2-digit',
+  hour12: true,
+  timeZone: 'Asia/Dhaka',
+});
+
+export const formatDateTime = (iso: string) =>
+  dateTimeFormat.format(new Date(iso));
