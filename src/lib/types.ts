@@ -67,3 +67,20 @@ export interface ReservationHistoryItem {
   expiresInMs: number;
   holdMs: number;
 }
+export interface CheckoutSession {
+  provider: 'stripe' | 'mock';
+  url: string;
+  orderId: string;
+  amount: number;
+}
+
+export interface OrderView {
+  id: string;
+  status: 'pending' | 'paid' | 'cancelled' | 'refunded' | 'refund_failed';
+  amount: number;
+  quantity: number;
+  dropId: string;
+  reservationId: string;
+  paidAt: string | null;
+  product: { name: string; slug: string; image?: string } | null;
+}
