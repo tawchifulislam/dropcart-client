@@ -2,11 +2,8 @@ import Link from 'next/link';
 import { NAV_LINKS } from '@/lib/navigation';
 import { Container } from './Container';
 import { TicketMark } from './TicketMark';
+import { FooterAccount } from './FooterAccount';
 
-const ACCOUNT_LINKS = [
-  { href: '/login', label: 'Sign in' },
-  { href: '/register', label: 'Create account' },
-];
 
 function FooterColumn({
   title,
@@ -49,7 +46,7 @@ export function SiteFooter() {
           title="Explore"
           links={[{ href: '/', label: 'Home' }, ...NAV_LINKS]}
         />
-        <FooterColumn title="Account" links={ACCOUNT_LINKS} />
+        <FooterAccount />
       </Container>
       <div className="border-line border-t-[1.5px] border-dashed">
         <Container className="text-ink-soft flex flex-col gap-1 py-4 text-sm sm:flex-row sm:items-center sm:justify-between">
