@@ -71,16 +71,21 @@ export function MobileMenu({ links }: { links: NavLink[] }) {
             ))}
           </ul>
           {user ? (
-            <button
-              type="button"
-              onClick={() => {
-                close();
-                void logout();
-              }}
-              className="btn mt-3 w-full"
-            >
-              Sign out
-            </button>
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <Link href="/account" onClick={close} className="btn btn-primary">
+                My account
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  close();
+                  void logout();
+                }}
+                className="btn"
+              >
+                Sign out
+              </button>
+            </div>
           ) : (
             <Link
               href="/login"
