@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { AuthForm } from '@/components/AuthForm';
 import { Container } from '@/components/Container';
 import { safeNext } from '@/lib/safe-next';
+import { AuthRedirect } from '@/components/AuthRedirect';
 
 export const metadata: Metadata = { title: 'Sign in' };
 
@@ -16,6 +17,7 @@ export default async function LoginPage({ searchParams }: Props) {
 
   return (
     <main>
+      <AuthRedirect to={next} />
       <Container className="grid min-h-[60dvh] place-items-center py-12">
         <div className="ticket w-full max-w-md p-6 md:p-8">
           <h1 className="display text-2xl">Sign in</h1>
