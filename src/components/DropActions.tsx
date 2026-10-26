@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 import { HttpError, request } from '@/lib/browser-api';
-import { formatPrice } from '@/lib/format';
+import { formatClock, formatPrice } from '@/lib/format';
 import type { Drop, ReservationView, User } from '@/lib/types';
 import { useAuth } from './AuthProvider';
 import { Countdown } from './Countdown';
@@ -32,11 +32,6 @@ const toHold = (reservation: ReservationView): Hold => ({
   deadline: Date.now() + reservation.expiresInMs,
   holdMs: reservation.holdMs,
 });
-
-const clock = (ms: number) => {
-  const total = Math.max(0, Math.ceil(ms / 1000));
-  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
-};
 
 function Message({
   tone,
@@ -214,9 +209,9 @@ function DropActionsView({ initial, price, user, authReady }: ViewProps) {
         <p
           className="numerals my-2 text-5xl"
           role="timer"
-          aria-label={`${clock(remaining)} left`}
+          aria-label={`${formatClock(remaining)} left`}
         >
-          {clock(remaining)}
+          {formatClock(remaining)}
         </p>
         <div className="hold" aria-hidden="true">
           <i
@@ -228,11 +223,17 @@ function DropActionsView({ initial, price, user, authReady }: ViewProps) {
         <p className="text-ink-soft mt-3 text-sm">
           When time runs out, the unit goes back on sale.
         </p>
+        <Link
+          href={`/checkout/${hold.id}`}
+          className="btn btn-reserve mt-4 w-full"
+        >
+          Pay {formatPrice(price)}
+        </Link>
         <button
           type="button"
           onClick={release}
           disabled={busy}
-          className="btn btn-quiet mt-4 w-full"
+          className="btn btn-quiet mt-2 w-full"
         >
           Release this unit
         </button>

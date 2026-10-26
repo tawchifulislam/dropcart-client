@@ -166,6 +166,14 @@ export function AccountView() {
                         Held until {formatDateTime(item.expiresAt)}
                       </p>
                     )}
+                    {item.status === 'active' && (
+                      <Link
+                        href={`/checkout/${item.id}`}
+                        className="text-brand text-sm font-bold hover:underline"
+                      >
+                        Pay now
+                      </Link>
+                    )}
                   </div>
                   <ReservationStatusBadge status={item.status} />
                 </li>

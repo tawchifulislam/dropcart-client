@@ -64,4 +64,6 @@ export interface ReservationHistoryItem {
   createdAt: string;
   dropPrice: number;
   product: { id: string; name: string; slug: string; image?: string };
+  expiresInMs: number;
+  holdMs: number;
 }

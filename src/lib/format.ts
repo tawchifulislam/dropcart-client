@@ -28,3 +28,8 @@ const dateTimeFormat = new Intl.DateTimeFormat('en-GB', {
 
 export const formatDateTime = (iso: string) =>
   dateTimeFormat.format(new Date(iso));
+
+export const formatClock = (ms: number) => {
+  const total = Math.max(0, Math.ceil(ms / 1000));
+  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
+};
