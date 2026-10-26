@@ -54,7 +54,9 @@ export function CheckoutComplete({ orderId }: { orderId: string }) {
 
     const poll = async () => {
       try {
-        const next = await request<OrderView>(`/orders/${orderId}`);
+        const next = await request<OrderView>(`/orders/${orderId}/sync`, {
+          method: 'POST',
+        });
         if (cancelled) return;
         setOrder(next);
         if (next.status !== 'pending') return;
