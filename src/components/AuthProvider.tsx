@@ -12,6 +12,7 @@ import {
 } from 'react';
 import { HttpError, request } from '@/lib/browser-api';
 import type { User } from '@/lib/types';
+import { useToast } from './ToastProvider';
 
 type AuthStatus = 'loading' | 'ready';
 
@@ -26,6 +27,7 @@ const AuthContext = createContext<AuthValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
+  const { toast } = useToast();
   const [user, setUser] = useState<User | null>(null);
   const [status, setStatus] = useState<AuthStatus>('loading');
 
@@ -50,8 +52,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = useCallback(async () => {
     await request('/auth/logout', { method: 'POST' });
     setUser(null);
+    toast({ tone: 'info', title: 'Signed out' });
     router.refresh();
-  }, [router]);
+  }, [router, toast]);
 
   const value = useMemo(
     () => ({ user, status, setUser, logout }),

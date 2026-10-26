@@ -5,6 +5,7 @@ import { type FormEvent, useState } from 'react';
 import { HttpError, request } from '@/lib/browser-api';
 import type { User } from '@/lib/types';
 import { useAuth } from './AuthProvider';
+import { useToast } from './ToastProvider';
 
 interface Props {
   mode: 'login' | 'register';
@@ -64,6 +65,7 @@ function Field({ name, label, type, autoComplete, error }: FieldProps) {
 export function AuthForm({ mode, next }: Props) {
   const router = useRouter();
   const { setUser } = useAuth();
+  const { toast } = useToast();
   const [errors, setErrors] = useState<FieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -81,6 +83,11 @@ export function AuthForm({ mode, next }: Props) {
         body: JSON.stringify(payload),
       });
       setUser(user);
+      toast({
+        tone: 'success',
+        title: isRegister ? 'Account created' : 'Welcome back',
+        description: user.name,
+      });
       router.replace(next);
       router.refresh();
     } catch (error) {
