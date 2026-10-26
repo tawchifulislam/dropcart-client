@@ -73,8 +73,14 @@ export function Hero({ drop, liveCount, upcomingCount }: Props) {
               aria-hidden="true"
               className="ticket animate-float pointer-events-none absolute top-12 -left-8 hidden items-center gap-2 px-3 py-2 text-sm font-bold lg:flex"
             >
-              <span className="badge badge-live">Live</span>
-              {drop.stockRemaining} left
+              {drop.soldOut ? (
+                <span className="badge badge-sold">Sold out</span>
+              ) : (
+                <>
+                  <span className="badge badge-live">Live</span>
+                  {drop.stockRemaining} left
+                </>
+              )}
             </div>
             <div
               aria-hidden="true"

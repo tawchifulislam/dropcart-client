@@ -23,7 +23,10 @@ export default async function HomePage() {
     api<{ items: string[] }>('/products/categories'),
   ]);
 
-  const [featuredLive, ...otherLive] = live.items;
+  const liveSorted = [...live.items].sort(
+    (a, b) => Number(a.soldOut) - Number(b.soldOut),
+  );
+  const [featuredLive, ...otherLive] = liveSorted;
   const featured = featuredLive ?? upcoming.items[0];
   const upcomingList = featuredLive ? upcoming.items : upcoming.items.slice(1);
 
