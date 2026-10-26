@@ -4,7 +4,6 @@ import { Container } from './Container';
 import { TicketMark } from './TicketMark';
 import { FooterAccount } from './FooterAccount';
 
-
 function FooterColumn({
   title,
   links,

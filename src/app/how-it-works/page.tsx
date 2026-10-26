@@ -3,7 +3,7 @@ import { Container } from '@/components/Container';
 import { CtaBand } from '@/components/CtaBand';
 import { Faq } from '@/components/Faq';
 import { PageHeader } from '@/components/PageHeader';
-import { Reveal } from '@/components/Reveal';
+import { RouteMap } from '@/components/RouteMap';
 import { SectionHeading } from '@/components/SectionHeading';
 
 export const metadata: Metadata = {
@@ -11,25 +11,6 @@ export const metadata: Metadata = {
   description:
     'How limited drops, five-minute reservations and checkout work on DropCart.',
 };
-
-const steps = [
-  {
-    title: 'A drop is scheduled',
-    body: 'Every drop has a start time, an end time, a drop price and a fixed number of units. You can browse the catalog any time and see exactly when each drop opens.',
-  },
-  {
-    title: 'Reserve your unit',
-    body: 'While a drop is live, press Reserve. Taking a unit from the stock is one atomic operation, so when two people press at the same instant, exactly one of them gets the last unit.',
-  },
-  {
-    title: 'Pay within five minutes',
-    body: 'Your unit is held in your name for five minutes while you pay securely with Stripe.',
-  },
-  {
-    title: 'Paid, or released',
-    body: 'Pay in time and the order is yours. Miss the window and the unit goes straight back into the drop for the next person.',
-  },
-];
 
 const faqs = [
   {
@@ -68,24 +49,15 @@ export default function HowItWorksPage() {
         description="Limited drops are simple: a fixed number of units, a short window to reserve, and a fair race for every unit."
       />
       <Container className="pb-20">
-        <section aria-labelledby="steps-heading" className="pt-12">
-          <SectionHeading id="steps-heading" title="From drop to doorstep" />
-          <ol className="border-line relative mt-8 space-y-8 border-l-[1.5px] border-dashed pl-8">
-            {steps.map((step, index) => (
-              <li key={step.title} className="relative">
-                <span
-                  aria-hidden="true"
-                  className="numerals border-line bg-surface absolute top-0 left-[-3.2rem] grid size-9 place-items-center rounded-full border-[1.5px] text-lg"
-                >
-                  {index + 1}
-                </span>
-                <Reveal>
-                  <h3 className="display text-xl">{step.title}</h3>
-                  <p className="text-ink-soft mt-2 max-w-prose">{step.body}</p>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
+        <section aria-labelledby="route-heading" className="pt-12">
+          <SectionHeading id="route-heading" title="The route of a unit" />
+          <p className="text-ink-soft mt-2 max-w-prose">
+            Follow one unit from the moment a drop is scheduled to the moment it
+            is yours, or back on sale for the next person.
+          </p>
+          <div className="mt-8">
+            <RouteMap />
+          </div>
         </section>
 
         <section aria-labelledby="faq-heading" className="pt-16">
