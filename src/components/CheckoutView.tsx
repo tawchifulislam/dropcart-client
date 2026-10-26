@@ -8,17 +8,16 @@ import { formatClock, formatPrice } from '@/lib/format';
 import type { CheckoutSession, ReservationHistoryItem } from '@/lib/types';
 import { useAuth } from './AuthProvider';
 import { Container } from './Container';
-import { MockPayment } from './MockPayment';
 import { ProductImage } from './ProductImage';
 import { Skeleton } from './Skeleton';
-import { StripePayment } from './StripePayment';
 
 export function CheckoutView({ reservationId }: { reservationId: string }) {
   const router = useRouter();
   const { user, status } = useAuth();
   const [item, setItem] = useState<ReservationHistoryItem | null>(null);
-  const [session, setSession] = useState<CheckoutSession | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const [deadline, setDeadline] = useState<number | null>(null);
   const [remaining, setRemaining] = useState(0);
   const [expired, setExpired] = useState(false);
@@ -35,35 +34,26 @@ export function CheckoutView({ reservationId }: { reservationId: string }) {
     if (!user) return;
     let cancelled = false;
 
-    (async () => {
-      try {
-        const { reservation } = await request<{
-          reservation: ReservationHistoryItem;
-        }>(`/reservations/${reservationId}`);
+    request<{ reservation: ReservationHistoryItem }>(
+      `/reservations/${reservationId}`,
+    )
+      .then(({ reservation }) => {
         if (cancelled) return;
         setItem(reservation);
-        if (reservation.status !== 'active' || reservation.expiresInMs <= 0)
-          return;
-
-        setDeadline(Date.now() + reservation.expiresInMs);
-        setRemaining(reservation.expiresInMs);
-        const checkout = await request<CheckoutSession>(
-          `/checkout/${reservationId}`,
-          {
-            method: 'POST',
-          },
-        );
-        if (!cancelled) setSession(checkout);
-      } catch (caught) {
+        if (reservation.status === 'active' && reservation.expiresInMs > 0) {
+          setDeadline(Date.now() + reservation.expiresInMs);
+          setRemaining(reservation.expiresInMs);
+        }
+      })
+      .catch((caught) => {
         if (!cancelled) {
-          setError(
+          setLoadError(
             caught instanceof HttpError
               ? caught.message
               : 'Network error. Please try again.',
           );
         }
-      }
-    })();
+      });
 
     return () => {
       cancelled = true;
@@ -85,7 +75,28 @@ export function CheckoutView({ reservationId }: { reservationId: string }) {
     return () => clearInterval(timer);
   }, [deadline]);
 
-  if (!user || (!item && !error)) {
+  const continueToPayment = async () => {
+    setBusy(true);
+    setSubmitError(null);
+    try {
+      const session = await request<CheckoutSession>(
+        `/checkout/${reservationId}`,
+        {
+          method: 'POST',
+        },
+      );
+      window.location.assign(session.url);
+    } catch (caught) {
+      setSubmitError(
+        caught instanceof HttpError
+          ? caught.message
+          : 'Network error. Please try again.',
+      );
+      setBusy(false);
+    }
+  };
+
+  if (!user || (!item && !loadError)) {
     return (
       <main>
         <Container className="space-y-4 py-12">
@@ -97,20 +108,19 @@ export function CheckoutView({ reservationId }: { reservationId: string }) {
   }
 
   const active = item?.status === 'active' && item.expiresInMs > 0 && !expired;
-  const total = item ? item.dropPrice * item.quantity : 0;
-  const amountLabel = formatPrice(total);
+  const amountLabel = item ? formatPrice(item.dropPrice * item.quantity) : '';
 
   return (
     <main>
       <Container className="py-8 md:py-12">
         <h1 className="display text-2xl md:text-3xl">Checkout</h1>
 
-        {error && (
+        {loadError && (
           <p
             role="alert"
             className="rounded-control bg-live-wash mt-6 p-3 font-bold"
           >
-            {error}
+            {loadError}
           </p>
         )}
 
@@ -120,8 +130,8 @@ export function CheckoutView({ reservationId }: { reservationId: string }) {
               This reservation is no longer active
             </p>
             <p className="text-ink-soft mt-1">
-              The five minute hold has ended, or the unit has already been paid
-              for or released.
+              The hold has ended, or the unit has already been paid for or
+              released.
             </p>
             <Link
               href={`/drops/${item.dropId}`}
@@ -138,20 +148,40 @@ export function CheckoutView({ reservationId }: { reservationId: string }) {
               <h2 id="payment-heading" className="display mb-4 text-xl">
                 Payment
               </h2>
-              {!session && <Skeleton className="h-56 w-full" />}
-              {session?.provider === 'stripe' && (
-                <StripePayment
-                  clientSecret={session.clientSecret}
-                  orderId={session.orderId}
-                  amountLabel={amountLabel}
-                />
-              )}
-              {session?.provider === 'mock' && (
-                <MockPayment
-                  orderId={session.orderId}
-                  amountLabel={amountLabel}
-                />
-              )}
+              <div className="ticket p-5">
+                <p className="font-bold">Secure payment page</p>
+                <p className="text-ink-soft mt-1">
+                  You will be taken to a secure payment page to enter your card
+                  details. Your unit stays held for the time shown while you
+                  pay.
+                </p>
+                <ul className="text-ink-soft mt-4 space-y-2 text-sm">
+                  <li>
+                    Card details are entered on the payment provider&apos;s
+                    page, never on DropCart.
+                  </li>
+                  <li>
+                    When the timer runs out, the unit goes back on sale and the
+                    payment page closes.
+                  </li>
+                </ul>
+                {submitError && (
+                  <p
+                    role="alert"
+                    className="rounded-control bg-live-wash mt-4 p-3 text-sm font-bold"
+                  >
+                    {submitError}
+                  </p>
+                )}
+                <button
+                  type="button"
+                  onClick={continueToPayment}
+                  disabled={busy}
+                  className="btn btn-reserve mt-5 w-full"
+                >
+                  {busy ? 'Redirecting...' : `Pay ${amountLabel}`}
+                </button>
+              </div>
             </section>
 
             <aside aria-labelledby="summary-heading">
