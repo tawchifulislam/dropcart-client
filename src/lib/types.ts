@@ -66,6 +66,7 @@ export interface ReservationHistoryItem {
   product: { id: string; name: string; slug: string; image?: string };
   expiresInMs: number;
   holdMs: number;
+  orderId: string | null;
 }
 export interface CheckoutSession {
   provider: 'stripe' | 'mock';

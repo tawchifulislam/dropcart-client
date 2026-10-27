@@ -174,6 +174,17 @@ export function AccountView() {
                         Pay now
                       </Link>
                     )}
+                    {item.status === 'completed' && item.orderId && (
+                      <p className="text-ink-soft text-sm">
+                        Order #{item.orderId.slice(-8).toUpperCase()},{' '}
+                        <Link
+                          href={`/checkout/complete?order=${item.orderId}`}
+                          className="text-brand font-bold hover:underline"
+                        >
+                          View receipt
+                        </Link>
+                      </p>
+                    )}
                   </div>
                   <ReservationStatusBadge status={item.status} />
                 </li>
