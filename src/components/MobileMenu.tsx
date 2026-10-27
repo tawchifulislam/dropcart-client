@@ -69,6 +69,15 @@ export function MobileMenu({ links }: { links: NavLink[] }) {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/cart"
+                onClick={close}
+                className="rounded-control hover:bg-sunk flex min-h-12 items-center px-3 font-bold"
+              >
+                Cart
+              </Link>
+            </li>
           </ul>
           {user ? (
             <div className="mt-3 grid grid-cols-2 gap-3">

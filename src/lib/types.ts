@@ -85,3 +85,38 @@ export interface OrderView {
   paidAt: string | null;
   product: { name: string; slug: string; image?: string } | null;
 }
+
+export interface ProductCard {
+  id: string;
+  name: string;
+  slug: string;
+  image?: string;
+  category: string;
+  price: number;
+  basePrice: number;
+  status: 'live' | 'upcoming' | 'no_drop' | 'sold_out';
+  stockRemaining?: number;
+  dropId?: string;
+}
+
+export interface CopilotAction {
+  type: 'added_to_cart';
+  productId: string;
+  name: string;
+  quantity: number;
+}
+
+export interface CopilotMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  text: string;
+  trace: string[];
+  products: ProductCard[];
+  actions: CopilotAction[];
+  createdAt: string;
+}
+
+export interface CartItem {
+  quantity: number;
+  product: CatalogProduct;
+}

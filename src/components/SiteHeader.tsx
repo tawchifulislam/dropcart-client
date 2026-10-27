@@ -6,6 +6,7 @@ import { NavLinks } from './NavLinks';
 import { ThemeToggle } from './ThemeToggle';
 import { TicketMark } from './TicketMark';
 import { HeaderAuth } from './HeaderAuth';
+import { CartLink } from './CartLink';
 
 export function SiteHeader() {
   return (
@@ -17,6 +18,7 @@ export function SiteHeader() {
         </Link>
         <NavLinks />
         <div className="flex items-center gap-2">
+          <CartLink />
           <ThemeToggle />
           <HeaderAuth />
           <MobileMenu links={NAV_LINKS} />
