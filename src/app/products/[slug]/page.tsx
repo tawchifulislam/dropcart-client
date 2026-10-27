@@ -13,6 +13,7 @@ import { ApiError, api } from '@/lib/api';
 import { formatPrice, humanize } from '@/lib/format';
 import { SITE_URL } from '@/lib/site';
 import type { CatalogProduct, Drop, Paginated } from '@/lib/types';
+import { AddToCartButton } from '@/components/AddToCartButton';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -117,6 +118,9 @@ export default async function ProductPage({ params }: Props) {
                 </s>
               )}
             </p>
+            <div className="mt-4">
+              <AddToCartButton productId={product.id} name={product.name} />
+            </div>
             <p className="text-ink-soft mt-4 max-w-prose">
               {product.description}
             </p>
