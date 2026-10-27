@@ -15,6 +15,7 @@ import type { Drop, ReservationView, User } from '@/lib/types';
 import { useAuth } from './AuthProvider';
 import { Countdown } from './Countdown';
 import { StockCells } from './StockCells';
+import { useToast } from './ToastProvider';
 
 const POLL_MS = 4000;
 const TICK_MS = 250;
@@ -66,6 +67,7 @@ interface ViewProps extends Props {
 function DropActionsView({ initial, price, user, authReady }: ViewProps) {
   const router = useRouter();
   const pathname = usePathname();
+  const { toast } = useToast();
   const [drop, setDrop] = useState<Drop>(initial);
   const [hold, setHold] = useState<Hold | null>(null);
   const [remaining, setRemaining] = useState(0);
@@ -132,13 +134,18 @@ function DropActionsView({ initial, price, user, authReady }: ViewProps) {
         clearInterval(timer);
         setHold(null);
         setNotice('expired');
+        toast({
+          tone: 'info',
+          title: 'Reservation expired',
+          description: 'Your unit went back on sale.',
+        });
         void refreshDrop();
       } else {
         setRemaining(left);
       }
     }, TICK_MS);
     return () => clearInterval(timer);
-  }, [hold, refreshDrop]);
+  }, [hold, refreshDrop, toast]);
 
   const reserve = async () => {
     setBusy(true);
@@ -154,6 +161,11 @@ function DropActionsView({ initial, price, user, authReady }: ViewProps) {
       });
       applyDrop(result.drop);
       startHold(result.reservation);
+      toast({
+        tone: 'success',
+        title: 'Unit reserved',
+        description: `You have ${formatClock(result.reservation.holdMs)} to pay.`,
+      });
     } catch (caught) {
       if (!(caught instanceof HttpError)) {
         setError('Network error. Please try again.');
@@ -180,6 +192,7 @@ function DropActionsView({ initial, price, user, authReady }: ViewProps) {
     try {
       await request(`/reservations/${hold.id}`, { method: 'DELETE' });
       setHold(null);
+      toast({ tone: 'info', title: 'Reservation released' });
       await refreshDrop();
     } catch (caught) {
       setError(
