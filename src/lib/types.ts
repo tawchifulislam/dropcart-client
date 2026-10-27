@@ -120,3 +120,39 @@ export interface CartItem {
   quantity: number;
   product: CatalogProduct;
 }
+export interface AdminDropSummary extends Drop {
+  productName: string;
+  revenue: number;
+  paidOrders: number;
+  unitsSold: number;
+}
+
+export interface AdminOverview {
+  totals: {
+    revenue: number;
+    paidOrders: number;
+    heldUnits: number;
+    liveDrops: number;
+  };
+  drops: AdminDropSummary[];
+}
+
+export interface AdminOrder {
+  id: string;
+  status: OrderView['status'];
+  amount: number;
+  quantity: number;
+  createdAt: string;
+  customer: string;
+}
+
+export interface AdminDropStats {
+  drop: Drop;
+  product: Product | null;
+  revenue: number;
+  paidOrders: number;
+  unitsSold: number;
+  heldUnits: number;
+  pendingOrders: number;
+  recentOrders: AdminOrder[];
+}

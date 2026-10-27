@@ -86,6 +86,11 @@ export function AccountView() {
             <span className="badge">
               {user.role === 'admin' ? 'Admin' : 'Shopper'}
             </span>
+            {user.role === 'admin' && (
+              <Link href="/admin" className="btn btn-primary">
+                Admin dashboard
+              </Link>
+            )}
             <button
               type="button"
               onClick={() => void signOut()}
