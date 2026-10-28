@@ -33,3 +33,11 @@ export const formatClock = (ms: number) => {
   const total = Math.max(0, Math.ceil(ms / 1000));
   return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, '0')}`;
 };
+const dateFormat = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Asia/Dhaka',
+});
+
+export const formatDate = (iso: string) => dateFormat.format(new Date(iso));

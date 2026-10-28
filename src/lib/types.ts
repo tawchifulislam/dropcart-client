@@ -42,7 +42,8 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'shopper' | 'admin';
+  role: 'shopper' | 'admin' | 'superadmin';
+  joinedAt: string;
 }
 
 export interface ReservationView {
