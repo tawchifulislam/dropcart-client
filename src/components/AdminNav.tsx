@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useAuth } from './AuthProvider';
 
 const LINKS = [
   { href: '/admin', label: 'Dashboard' },
@@ -11,13 +12,18 @@ const LINKS = [
 
 export function AdminNav() {
   const pathname = usePathname();
+  const { user } = useAuth();
+  const links =
+    user?.role === 'superadmin'
+      ? [...LINKS, { href: '/admin/users', label: 'Users' }]
+      : LINKS;
 
   return (
     <nav
       aria-label="Admin"
       className="flex gap-2 overflow-x-auto lg:flex-col lg:overflow-visible"
     >
-      {LINKS.map(({ href, label }) => {
+      {links.map(({ href, label }) => {
         const active =
           href === '/admin' ? pathname === href : pathname.startsWith(href);
         return (

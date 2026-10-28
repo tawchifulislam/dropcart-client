@@ -23,6 +23,7 @@ import { Countdown } from './Countdown';
 import { DropBadge } from './DropBadge';
 import { Skeleton } from './Skeleton';
 import { StockCells } from './StockCells';
+import { EmptyState } from './EmptyState';
 
 const POLL_MS = 4000;
 const compact = new Intl.NumberFormat('en-US', {
@@ -248,6 +249,7 @@ export function AdminDashboard() {
   const [stats, setStats] = useState<AdminDropStats | null>(null);
   const [punchedAt, setPunchedAt] = useState<number | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
+  const [dropsLoaded, setDropsLoaded] = useState(false);
   const lastRemaining = useRef<{ id: string; value: number } | null>(null);
 
   const activeId =
@@ -272,6 +274,8 @@ export function AdminDashboard() {
       setDrops(items);
     } catch {
       setError('We could not load the drops.');
+    } finally {
+      setDropsLoaded(true);
     }
   }, []);
 
@@ -380,42 +384,55 @@ export function AdminDashboard() {
         />
       </dl>
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-        {currentStats ? (
-          <LiveDropPanel stats={currentStats} punchedAt={punchedAt} />
-        ) : (
-          <Skeleton className="h-96 w-full" />
-        )}
+      {dropsLoaded && drops.length === 0 && (
+        <EmptyState
+          title="No drops yet"
+          body="Create a product, then schedule a drop to see live stock and revenue here."
+          href="/admin/products/new"
+          cta="Create a product"
+        />
+      )}
 
-        <section aria-labelledby="chart-heading" className="ticket">
-          <div className="p-4">
-            <h2 id="chart-heading" className="display text-xl">
-              Revenue per drop
-            </h2>
-            <p className="text-ink-soft text-sm">
-              The most recent drops. The live drop is highlighted.
-            </p>
-          </div>
-          <div className="px-2 pb-4">
-            {overview ? (
-              <RevenueChart points={points} />
+      {drops.length > 0 && (
+        <>
+          <div className="grid gap-6 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+            {currentStats ? (
+              <LiveDropPanel stats={currentStats} punchedAt={punchedAt} />
             ) : (
-              <Skeleton className="mx-2 h-72" />
+              <Skeleton className="h-96 w-full" />
             )}
-          </div>
-        </section>
-      </div>
 
-      <section aria-labelledby="orders-heading" className="ticket">
-        <h2 id="orders-heading" className="display p-4 text-xl">
-          Recent orders for this drop
-        </h2>
-        {currentStats ? (
-          <OrdersTable orders={currentStats.recentOrders} />
-        ) : (
-          <Skeleton className="m-4 h-32" />
-        )}
-      </section>
+            <section aria-labelledby="chart-heading" className="ticket">
+              <div className="p-4">
+                <h2 id="chart-heading" className="display text-xl">
+                  Revenue per drop
+                </h2>
+                <p className="text-ink-soft text-sm">
+                  The most recent drops. The live drop is highlighted.
+                </p>
+              </div>
+              <div className="px-2 pb-4">
+                {overview ? (
+                  <RevenueChart points={points} />
+                ) : (
+                  <Skeleton className="mx-2 h-72" />
+                )}
+              </div>
+            </section>
+          </div>
+
+          <section aria-labelledby="orders-heading" className="ticket">
+            <h2 id="orders-heading" className="display p-4 text-xl">
+              Recent orders for this drop
+            </h2>
+            {currentStats ? (
+              <OrdersTable orders={currentStats.recentOrders} />
+            ) : (
+              <Skeleton className="m-4 h-32" />
+            )}
+          </section>
+        </>
+      )}
     </div>
   );
 }
