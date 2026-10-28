@@ -337,12 +337,14 @@ body {
     font-size: 0.8125rem;
     font-weight: 700;
     line-height: 1;
-    background: var(--sunk);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1.5px var(--line);
     color: var(--ink);
   }
   .badge-live {
     background: var(--live);
     color: var(--on-live);
+    box-shadow: none;
   }
   .badge-live::before {
     content: '';
@@ -355,10 +357,12 @@ body {
   .badge-upcoming {
     background: var(--upcoming);
     color: var(--on-upcoming);
+    box-shadow: none;
   }
   .badge-ok {
     background: var(--ok-wash);
     color: var(--ok);
+    box-shadow: none;
   }
   .badge-sold {
     background: transparent;
@@ -367,6 +371,7 @@ body {
     transform: rotate(-4deg);
     height: 30px;
     padding: 0 12px;
+    box-shadow: none;
   }
 
   .cells {
