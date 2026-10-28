@@ -157,3 +157,15 @@ export interface AdminDropStats {
   pendingOrders: number;
   recentOrders: AdminOrder[];
 }
+export interface ManagedProduct extends CatalogProduct {
+  owner: { id: string; name: string } | null;
+}
+
+export interface ManagedUser {
+  id: string;
+  name: string;
+  email: string;
+  role: User['role'];
+  joinedAt: string;
+  products: number;
+}

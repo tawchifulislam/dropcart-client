@@ -51,6 +51,7 @@ export function ProductImage({
         fill
         sizes={sizes}
         priority={priority}
+        unoptimized={/^https?:\/\//.test(src)}
         onError={() => setFailed(true)}
         className="ease-snap object-cover transition-transform duration-500 group-hover:scale-105"
       />
