@@ -110,7 +110,7 @@ function RevenueChart({ points }: { points: ChartPoint[] }) {
           />
           <Tooltip
             content={<ChartTooltip />}
-            cursor={{ fill: 'var(--sunk)' }}
+            cursor={{ fill: 'var(--brand-wash)', fillOpacity: 0.5 }}
           />
           <Bar dataKey="revenue" radius={[4, 4, 0, 0]}>
             {points.map((point) => (

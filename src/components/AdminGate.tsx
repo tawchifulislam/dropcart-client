@@ -24,7 +24,7 @@ export function AdminGate({ children }: { children: ReactNode }) {
     );
   }
 
-  if (user.role !== 'admin') {
+  if (user.role !== 'admin' && user.role !== 'superadmin') {
     return (
       <Container className="py-16">
         <div className="ticket mx-auto max-w-lg p-8 text-center">
