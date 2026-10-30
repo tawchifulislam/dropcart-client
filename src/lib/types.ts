@@ -136,6 +136,7 @@ export interface AdminOverview {
     liveDrops: number;
   };
   drops: AdminDropSummary[];
+  demo: boolean;
 }
 
 export interface AdminOrder {

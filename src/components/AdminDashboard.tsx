@@ -24,6 +24,7 @@ import { DropBadge } from './DropBadge';
 import { Skeleton } from './Skeleton';
 import { StockCells } from './StockCells';
 import { EmptyState } from './EmptyState';
+import { DemoResetCard } from './DemoResetCard';
 
 const POLL_MS = 4000;
 const compact = new Intl.NumberFormat('en-US', {
@@ -363,6 +364,17 @@ export function AdminDashboard() {
         >
           {error}
         </p>
+      )}
+      {overview?.demo && (
+        <DemoResetCard
+          onReset={() => {
+            setChosenId(null);
+            setStats(null);
+            lastRemaining.current = null;
+            void loadOverview();
+            void loadDrops();
+          }}
+        />
       )}
 
       <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4">
