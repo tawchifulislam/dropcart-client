@@ -165,6 +165,13 @@ export function CheckoutView({ reservationId }: { reservationId: string }) {
                     payment page closes.
                   </li>
                 </ul>
+                {process.env.NEXT_PUBLIC_DEMO_MODE === 'true' && (
+                  <p className="rounded-control bg-upcoming-wash mt-4 p-3 text-sm">
+                    <b>Demo store.</b> Payments run in test mode. Use card 4242
+                    4242 4242 4242, any future date and any CVC. No real money
+                    is charged.
+                  </p>
+                )}
                 {submitError && (
                   <p
                     role="alert"
