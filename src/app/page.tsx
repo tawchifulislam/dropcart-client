@@ -1,16 +1,20 @@
+import type { Metadata } from 'next';
 import { CategoryTiles } from '@/components/CategoryTiles';
 import { Container } from '@/components/Container';
 import { CtaBand } from '@/components/CtaBand';
 import { DropCard } from '@/components/DropCard';
+import { Faq } from '@/components/Faq';
+import { FeatureGrid } from '@/components/FeatureGrid';
 import { Hero } from '@/components/Hero';
 import { HowItWorks } from '@/components/HowItWorks';
 import { Reveal } from '@/components/Reveal';
 import { SectionHeading } from '@/components/SectionHeading';
 import { Ticker } from '@/components/Ticker';
+import { TrustStrip } from '@/components/TrustStrip';
 import { UpcomingDropRow } from '@/components/UpcomingDropRow';
 import { api } from '@/lib/api';
+import { FAQS } from '@/lib/faqs';
 import type { DropWithProduct } from '@/lib/types';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: { absolute: 'DropCart | Limited drops, every unit counted' },
@@ -38,6 +42,7 @@ export default async function HomePage() {
         upcomingCount={upcoming.items.length}
       />
       <Ticker drops={[...live.items, ...upcoming.items]} />
+      <TrustStrip />
       <Container className="pb-20">
         {otherLive.length > 0 && (
           <section aria-labelledby="live-heading" className="pt-16">
@@ -57,6 +62,7 @@ export default async function HomePage() {
         )}
 
         <HowItWorks />
+        <FeatureGrid />
         <CategoryTiles categories={categories.items} />
 
         {upcomingList.length > 0 && (
@@ -75,6 +81,18 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
+        <section aria-labelledby="faq-heading" className="pt-20">
+          <SectionHeading
+            id="faq-heading"
+            title="Questions"
+            href="/how-it-works"
+            linkLabel="All answers"
+          />
+          <div className="mt-5">
+            <Faq items={FAQS.slice(0, 4)} />
+          </div>
+        </section>
 
         <CtaBand />
       </Container>
