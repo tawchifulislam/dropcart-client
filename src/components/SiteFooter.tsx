@@ -67,9 +67,6 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-          <p className="text-ink-soft mt-3 text-sm">
-            Built with Next.js, Express, MongoDB, Stripe and Gemini.
-          </p>
         </div>
       </Container>
       <div className="border-line border-t-[1.5px] border-dashed">
