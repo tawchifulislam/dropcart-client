@@ -5,7 +5,7 @@ The web app for **DropCart**, a limited-drop store where products go on sale in 
 - Live demo: <https://dropcart-client.vercel.app>
 - API repository: [dropcart-server](https://github.com/tawchifulislam/dropcart-server)
 
-<!-- Add screenshots here: home, drop page, checkout receipt, copilot, admin dashboard -->
+![DropCart: live drops with stock cells and hold timers](public/docs/dropcart.png)
 
 ## What you can do
 
