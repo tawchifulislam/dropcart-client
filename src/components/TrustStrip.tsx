@@ -2,18 +2,15 @@ import { Container } from './Container';
 
 const ITEMS = [
   {
-    label: 'Atomic stock, no overselling',
+    label: 'No overselling',
     path: 'M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z',
   },
   {
-    label: 'Five minute fair hold',
+    label: '5 minute hold',
     path: 'M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0',
   },
-  {
-    label: 'Secure hosted checkout',
-    path: 'M5 11h14v9H5zM8 11V8a4 4 0 0 1 8 0v3',
-  },
-  { label: 'AI shopping copilot', path: 'M4 5h16v11H9l-5 4z' },
+  { label: 'Secure checkout', path: 'M5 11h14v9H5zM8 11V8a4 4 0 0 1 8 0v3' },
+  { label: 'AI copilot', path: 'M4 5h16v11H9l-5 4z' },
 ];
 
 export function TrustStrip() {
@@ -23,11 +20,11 @@ export function TrustStrip() {
       className="border-line bg-surface border-b-[1.5px]"
     >
       <Container>
-        <ul className="grid grid-cols-1 gap-x-6 gap-y-3 py-4 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-3 py-4 lg:grid-cols-4">
           {ITEMS.map((item) => (
             <li
               key={item.label}
-              className="flex items-center gap-2.5 text-sm font-bold"
+              className="flex items-center gap-2.5 text-sm font-bold lg:justify-center"
             >
               <svg
                 width="20"

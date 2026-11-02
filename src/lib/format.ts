@@ -7,7 +7,7 @@ const startFormat = new Intl.DateTimeFormat('en-GB', {
   hour: 'numeric',
   minute: '2-digit',
   hour12: true,
-  timeZone: 'Asia/Dhaka',
+  timeZoneName: 'short',
 });
 
 export const formatPrice = (amount: number) =>
@@ -23,7 +23,7 @@ const dateTimeFormat = new Intl.DateTimeFormat('en-GB', {
   hour: 'numeric',
   minute: '2-digit',
   hour12: true,
-  timeZone: 'Asia/Dhaka',
+  timeZoneName: 'short',
 });
 
 export const formatDateTime = (iso: string) =>
@@ -37,7 +37,7 @@ const dateFormat = new Intl.DateTimeFormat('en-GB', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
-  timeZone: 'Asia/Dhaka',
+  timeZoneName: 'short',
 });
 
 export const formatDate = (iso: string) => dateFormat.format(new Date(iso));

@@ -24,7 +24,7 @@ export function AnimatedHeading({ id, lines }: { id: string; lines: Line[] }) {
           {line.words.map((word, index) => (
             <span
               key={`${word}-${index}`}
-              className="mr-[0.25em] inline-block overflow-hidden pb-1 align-bottom"
+              className="mr-[0.18em] inline-block overflow-hidden pb-1 align-bottom"
             >
               <motion.span
                 className="inline-block"

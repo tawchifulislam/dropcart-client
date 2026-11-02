@@ -17,7 +17,7 @@ export function Ticker({ drops }: { drops: DropWithProduct[] }) {
   return (
     <div
       aria-hidden="true"
-      className="group border-line bg-ink text-canvas overflow-hidden border-b-[1.5px] py-3"
+      className="group border-line bg-surface overflow-hidden border-b-[1.5px] py-3"
     >
       <div className="animate-marquee flex w-max group-hover:[animation-play-state:paused]">
         {track.map((drop, index) => (
@@ -27,7 +27,7 @@ export function Ticker({ drops }: { drops: DropWithProduct[] }) {
           >
             <TicketMark className="text-live" />
             <span className="display text-lg">{drop.product.name}</span>
-            <span className="text-sm opacity-80">{describe(drop)}</span>
+            <span className="text-ink-soft text-sm">{describe(drop)}</span>
           </span>
         ))}
       </div>
