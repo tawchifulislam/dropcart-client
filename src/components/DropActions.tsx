@@ -16,6 +16,7 @@ import { useAuth } from './AuthProvider';
 import { Countdown } from './Countdown';
 import { StockCells } from './StockCells';
 import { useToast } from './ToastProvider';
+import { GuestButton } from './GuestButton';
 
 const POLL_MS = 4000;
 const TICK_MS = 250;
@@ -272,9 +273,16 @@ function DropActionsView({ initial, price, user, authReady }: ViewProps) {
     );
   } else if (drop.status === 'live' && !user) {
     action = (
-      <Link href={loginHref} className="btn btn-reserve w-full">
-        Sign in to reserve
-      </Link>
+      <div className="grid gap-2">
+        <Link href={loginHref} className="btn btn-reserve w-full">
+          Sign in to reserve
+        </Link>
+        <GuestButton
+          next={pathname}
+          label="Or continue as a guest"
+          className="btn btn-quiet w-full"
+        />
+      </div>
     );
   } else if (drop.status === 'live') {
     action = (

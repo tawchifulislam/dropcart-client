@@ -4,6 +4,7 @@ import { AuthForm } from '@/components/AuthForm';
 import { Container } from '@/components/Container';
 import { safeNext } from '@/lib/safe-next';
 import { AuthRedirect } from '@/components/AuthRedirect';
+import { GuestPrompt } from '@/components/GuestPrompt';
 
 export const metadata: Metadata = { title: 'Create account' };
 
@@ -22,6 +23,7 @@ export default async function RegisterPage({ searchParams }: Props) {
         <div className="ticket w-full max-w-md p-6 md:p-8">
           <h1 className="display text-2xl">Create account</h1>
           <p className="text-ink-soft mt-1">
+            <GuestPrompt next={next} />
             One account is all you need to reserve in any drop.
           </p>
           <div className="mt-6">

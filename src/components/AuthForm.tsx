@@ -131,7 +131,11 @@ export function AuthForm({ mode, next }: Props) {
         error={errors.password}
       />
       {isRegister && (
-        <p className="text-ink-soft text-sm">Use at least 8 characters.</p>
+        <p className="text-ink-soft text-sm">
+          Use at least 8 characters.
+          {process.env.NEXT_PUBLIC_DEMO_MODE === 'true' &&
+            ' This is a demo store, so please do not reuse a password from elsewhere.'}
+        </p>
       )}
       {formError && (
         <p

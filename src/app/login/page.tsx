@@ -4,6 +4,7 @@ import { AuthForm } from '@/components/AuthForm';
 import { Container } from '@/components/Container';
 import { safeNext } from '@/lib/safe-next';
 import { AuthRedirect } from '@/components/AuthRedirect';
+import { GuestPrompt } from '@/components/GuestPrompt';
 
 export const metadata: Metadata = { title: 'Sign in' };
 
@@ -22,6 +23,8 @@ export default async function LoginPage({ searchParams }: Props) {
         <div className="ticket w-full max-w-md p-6 md:p-8">
           <h1 className="display text-2xl">Sign in</h1>
           <p className="text-ink-soft mt-1">
+            {' '}
+            <GuestPrompt next={next} />
             Welcome back. Sign in to reserve your unit.
           </p>
           <div className="mt-6">
