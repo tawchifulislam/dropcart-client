@@ -8,6 +8,7 @@ import { SiteHeader } from '@/components/SiteHeader';
 import { ToastProvider } from '@/components/ToastProvider';
 import { SITE_URL } from '@/lib/site';
 import './globals.css';
+import { ConfirmProvider } from '@/components/ConfirmProvider';
 
 const anek = Anek_Bangla({
   subsets: ['latin'],
@@ -61,14 +62,16 @@ export default function RootLayout({
         </a>
         <MotionProvider>
           <ToastProvider>
-            <AuthProvider>
-              <DemoBanner />
-              <SiteHeader />
-              <div id="content" tabIndex={-1} className="flex-1 outline-none">
-                {children}
-              </div>
-              <SiteFooter />
-            </AuthProvider>
+            <ConfirmProvider>
+              <AuthProvider>
+                <DemoBanner />
+                <SiteHeader />
+                <div id="content" tabIndex={-1} className="flex-1 outline-none">
+                  {children}
+                </div>
+                <SiteFooter />
+              </AuthProvider>
+            </ConfirmProvider>
           </ToastProvider>
         </MotionProvider>
       </body>
