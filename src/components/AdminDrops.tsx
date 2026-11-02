@@ -10,9 +10,11 @@ import { EmptyState } from './EmptyState';
 import { ProductImage } from './ProductImage';
 import { Skeleton } from './Skeleton';
 import { useToast } from './ToastProvider';
+import { useConfirm } from './ConfirmProvider';
 
 export function AdminDrops() {
   const { toast } = useToast();
+  const confirm = useConfirm();
   const [items, setItems] = useState<DropWithProduct[] | null>(null);
   const [failed, setFailed] = useState(false);
 
@@ -31,8 +33,13 @@ export function AdminDrops() {
   }, []);
 
   const remove = async (drop: DropWithProduct) => {
-    if (!window.confirm(`Delete the upcoming drop for ${drop.product.name}?`))
-      return;
+    const confirmed = await confirm({
+      title: 'Delete this drop?',
+      description: `The upcoming drop for ${drop.product.name} will be removed. This cannot be undone.`,
+      confirmLabel: 'Delete drop',
+      tone: 'danger',
+    });
+    if (!confirmed) return;
     try {
       await request(`/admin/drops/${drop.id}`, { method: 'DELETE' });
       setItems(

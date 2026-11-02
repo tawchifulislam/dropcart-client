@@ -3,25 +3,35 @@
 import { useState } from 'react';
 import { HttpError, request } from '@/lib/browser-api';
 import { useAuth } from './AuthProvider';
+import { useConfirm } from './ConfirmProvider';
 import { useToast } from './ToastProvider';
 
 export function DemoResetCard({ onReset }: { onReset: () => void }) {
   const { user } = useAuth();
   const { toast } = useToast();
+  const confirm = useConfirm();
   const [busy, setBusy] = useState(false);
 
   if (user?.role !== 'superadmin') return null;
 
   const reset = async () => {
-    const confirmed = window.confirm(
-      'Reset the demo? This restores the sample products and fresh drops, and clears orders, reservations, carts and chats. Accounts are kept.',
-    );
+    const confirmed = await confirm({
+      title: 'Reset the demo data?',
+      description:
+        'Sample products and fresh live drops are restored. Orders, reservations, carts and chats are cleared. Accounts are kept.',
+      confirmLabel: 'Reset demo data',
+      tone: 'danger',
+    });
     if (!confirmed) return;
 
     setBusy(true);
     try {
       await request('/admin/demo/reset', { method: 'POST' });
-      toast({ tone: 'success', title: 'Demo data reset' });
+      toast({
+        tone: 'success',
+        title: 'Demo data reset',
+        description: 'Fresh sample products and live drops are ready.',
+      });
       onReset();
     } catch (caught) {
       toast({

@@ -7,6 +7,7 @@ import type { ManagedUser, User } from '@/lib/types';
 import { useAuth } from './AuthProvider';
 import { Skeleton } from './Skeleton';
 import { useToast } from './ToastProvider';
+import { useConfirm } from './ConfirmProvider';
 
 const ROLE_OPTIONS: User['role'][] = ['shopper', 'admin', 'superadmin'];
 
@@ -20,6 +21,7 @@ const WARNINGS: Record<User['role'], string> = {
 export function AdminUsers() {
   const { user } = useAuth();
   const { toast } = useToast();
+  const confirm = useConfirm();
   const [query, setQuery] = useState('');
   const [users, setUsers] = useState<ManagedUser[] | null>(null);
   const [failed, setFailed] = useState(false);
@@ -53,8 +55,12 @@ export function AdminUsers() {
 
   const changeRole = async (target: ManagedUser, role: User['role']) => {
     if (role === target.role) return;
-    if (!window.confirm(`Change ${target.name} to ${role}? ${WARNINGS[role]}`))
-      return;
+    const confirmed = await confirm({
+      title: `Make ${target.name} a${role === 'admin' ? 'n' : ''} ${role}?`,
+      description: WARNINGS[role],
+      confirmLabel: 'Change role',
+    });
+    if (!confirmed) return;
     try {
       const updated = await request<{ role: User['role'] }>(
         `/admin/users/${target.id}/role`,
