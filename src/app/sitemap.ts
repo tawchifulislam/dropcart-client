@@ -12,9 +12,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     api<{ items: DropWithProduct[] }>('/drops/upcoming'),
   ]);
 
-  const pages = ['', '/drops', '/products', '/how-it-works'].map((path) => ({
-    url: `${SITE_URL}${path}`,
-  }));
+  const pages = ['', '/drops', '/products', '/how-it-works', '/about'].map(
+    (path) => ({
+      url: `${SITE_URL}${path}`,
+    }),
+  );
   const productPages = products.items.map((product) => ({
     url: `${SITE_URL}/products/${product.slug}`,
   }));
