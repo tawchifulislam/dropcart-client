@@ -22,11 +22,12 @@ export default async function LoginPage({ searchParams }: Props) {
       <Container className="grid min-h-[60dvh] place-items-center py-12">
         <div className="ticket w-full max-w-md p-6 md:p-8">
           <h1 className="display text-2xl">Sign in</h1>
-          <p className="text-ink-soft mt-1">
-            {' '}
+
+          <div className="text-ink-soft mt-1">
             <GuestPrompt next={next} />
-            Welcome back. Sign in to reserve your unit.
-          </p>
+            <p className="mt-2">Welcome back. Sign in to reserve your unit.</p>
+          </div>
+
           <div className="mt-6">
             <AuthForm mode="login" next={next} />
           </div>

@@ -22,10 +22,14 @@ export default async function RegisterPage({ searchParams }: Props) {
       <Container className="grid min-h-[60dvh] place-items-center py-12">
         <div className="ticket w-full max-w-md p-6 md:p-8">
           <h1 className="display text-2xl">Create account</h1>
-          <p className="text-ink-soft mt-1">
+
+          <div className="text-ink-soft mt-1">
             <GuestPrompt next={next} />
-            One account is all you need to reserve in any drop.
-          </p>
+            <p className="mt-2">
+              One account is all you need to reserve in any drop.
+            </p>
+          </div>
+
           <div className="mt-6">
             <AuthForm mode="register" next={next} />
           </div>
