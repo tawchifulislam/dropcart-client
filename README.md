@@ -2,6 +2,8 @@
 
 The web app for **DropCart**, a limited-drop store where products go on sale in scheduled, stock-limited drops. Each unit is counted, held for five minutes while you pay, and released back to the drop if you do not.
 
+![CI](https://github.com/tawchifulislam/dropcart-client/actions/workflows/ci.yml/badge.svg)
+
 - Live demo: <https://dropcart-client.vercel.app>
 - API repository: [dropcart-server](https://github.com/tawchifulislam/dropcart-server)
 
