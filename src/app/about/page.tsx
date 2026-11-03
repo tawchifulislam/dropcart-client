@@ -103,7 +103,7 @@ export default function AboutPage() {
             {TRY_STEPS.map((step, index) => (
               <li
                 key={step.title}
-                className="ticket flex flex-wrap items-center gap-4 p-4"
+                className="ticket grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3 p-4 sm:grid-cols-[auto_1fr_auto]"
               >
                 <span
                   aria-hidden="true"
@@ -111,17 +111,24 @@ export default function AboutPage() {
                 >
                   {index + 1}
                 </span>
-                <div className="min-w-0 flex-1">
+                <div className="min-w-0">
                   <h3 className="font-bold">{step.title}</h3>
                   <p className="text-ink-soft text-sm">{step.body}</p>
                 </div>
-                {index === 0 && (
-                  <GuestButton className="btn btn-primary min-h-11 text-sm" />
-                )}
-                {step.href && (
-                  <Link href={step.href} className="btn min-h-11 text-sm">
-                    {step.cta}
-                  </Link>
+                {(index === 0 || step.href) && (
+                  <div className="col-span-2 flex flex-wrap gap-2 sm:col-span-1">
+                    {index === 0 && (
+                      <GuestButton className="btn btn-primary min-h-11 w-full text-sm sm:w-auto" />
+                    )}
+                    {step.href && (
+                      <Link
+                        href={step.href}
+                        className="btn min-h-11 w-full text-sm sm:w-auto"
+                      >
+                        {step.cta}
+                      </Link>
+                    )}
+                  </div>
                 )}
               </li>
             ))}
