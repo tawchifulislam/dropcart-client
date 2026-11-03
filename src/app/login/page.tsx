@@ -24,8 +24,8 @@ export default async function LoginPage({ searchParams }: Props) {
           <h1 className="display text-2xl">Sign in</h1>
 
           <div className="text-ink-soft mt-1">
-            <GuestPrompt next={next} />
             <p className="mt-2">Welcome back. Sign in to reserve your unit.</p>
+            <GuestPrompt next={next} />
           </div>
 
           <div className="mt-6">

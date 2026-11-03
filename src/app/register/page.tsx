@@ -24,10 +24,10 @@ export default async function RegisterPage({ searchParams }: Props) {
           <h1 className="display text-2xl">Create account</h1>
 
           <div className="text-ink-soft mt-1">
-            <GuestPrompt next={next} />
             <p className="mt-2">
               One account is all you need to reserve in any drop.
             </p>
+            <GuestPrompt next={next} />
           </div>
 
           <div className="mt-6">
