@@ -20,10 +20,7 @@ export function AnimatedHeading({ id, lines }: { id: string; lines: Line[] }) {
   return (
     <h1 id={id} className="display text-[clamp(2.5rem,8vw,5.5rem)]">
       {prepared.map((line) => (
-        <span
-          key={line.text}
-          className={`block xl:whitespace-nowrap ${line.className ?? ''}`}
-        >
+        <span key={line.text} className={`block ${line.className ?? ''}`}>
           {line.words.map((word, index) => (
             <span
               key={`${word}-${index}`}
