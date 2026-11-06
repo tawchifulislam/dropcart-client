@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     let cancelled = false;
-    request<{ user: User }>('/auth/me')
+    request<{ user: User | null }>('/auth/session')
       .then((result) => {
         if (!cancelled) setUser(result.user);
       })

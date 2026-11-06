@@ -16,6 +16,7 @@ interface Props {
 
 export function DropCard({ drop, featured = false }: Props) {
   const { product } = drop;
+  const Title = featured ? 'h2' : 'h3';
   const countdown =
     drop.status === 'upcoming'
       ? { target: drop.startsAt, label: 'Starts in' }
@@ -35,7 +36,7 @@ export function DropCard({ drop, featured = false }: Props) {
           priority={featured}
           className={`mt-3 ${featured ? 'h-56 sm:h-72' : 'h-48'}`}
         />
-        <h3 className="display mt-3 text-xl">{product.name}</h3>
+        <Title className="display mt-3 text-xl">{product.name}</Title>
         <p className="mt-1 flex items-baseline gap-3">
           <span className="display text-2xl">
             {formatPrice(drop.dropPrice)}
