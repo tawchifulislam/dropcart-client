@@ -158,3 +158,7 @@ An automated audit (Lighthouse and axe) is on the list of next steps, so no scor
 - Stock and timers are polled, not pushed. Server-sent events would be the next step for very large audiences.
 - The interface is English only. Prices are in Bangladeshi taka and times are shown in Dhaka time (GMT+6).
 - There are no component or end-to-end tests yet. Playwright for the reservation and checkout path is the natural next step.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
